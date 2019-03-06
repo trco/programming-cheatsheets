@@ -12,6 +12,11 @@ Initialize git
     # initialize git in your project’s main folder
     $ git init
 
+Git workflow
+------------
+
+.. figure:: /img/git_workflow.png
+
 Basic
 -----
 
