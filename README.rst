@@ -8,3 +8,4 @@ Topics
 ======
 
 1. git
+2. Deploy Django on Ubuntu server
