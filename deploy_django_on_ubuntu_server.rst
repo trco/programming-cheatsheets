@@ -121,14 +121,20 @@ That's the Ubuntu's preferred way of saving Nginx configurations with the real c
 
 4. Reload Nginx and restart server.
 
+.. code-block::
+
     $ sudo systemctl reload nginx
     $ cd ~/sites/$SITENAME
     $ ./virtualenv/bin/python manage.py runserver 8000
 
+Visit staging.example.com in your browser.
+
+Debugging tips and commands:
+
+.. code-block::
+
     # test config file for errors, Nginx error logs go into /var/log/nginx/error.log
     $ sudo nginx -t
-
-Visit staging.example.com in your browser.
 
 Switching to Gunicorn
 ---------------------
@@ -245,6 +251,8 @@ Using environment variables to adjust settings for production
 
 3. Setup variables in settings.py.
 
+You should use separate settings file (for example dev.py) for local development.
+
 .. code-block::
 
     settings.py
@@ -308,3 +316,60 @@ By default Nginx strips out the Host headers from requests it forwards. Original
     $ ./virtualenv/bin/gunicorn --bind unix:/tmp/staging.example.com.socket example.wsgi:application
 
 Visit staging.example.com in your browser.
+
+Start Gunicorn automatically
+----------------------------
+
+Server should start Gunicorn automatically on boot or should reload it if it crashes.
+
+1. Create Systemd config file.
+
+Save this config to ``gunicorn-staging.example.com.service`` file inside of ``/etc/systemd/system`` folder.
+
+.. code-block::
+
+    [Unit]
+    Description=Gunicorn server for staging.example.com
+
+    [Service]
+    Restart=on-failure
+    User=test
+    WorkingDirectory=/home/user/sites/staging.example.com
+    EnvironmentFile=/home/user/sites/staging.example.com/.env
+
+    ExecStart=/home/user/sites/staging.example.com/virtualenv/bin/gunicorn \
+    --bind unix:/tmp/staging.example.com.socket \
+    example.wsgi:application
+
+    [Install]
+    WantedBy=multi-user.target
+
+After changing Systemd config file always run ``deamon-reload`` before ``systemctl restart`` to see the effect of the changes.
+
+2. Tell Systemd to start Gunicorn with the ``systemctl`` command.
+
+.. code-block::
+
+    # tell Systemd to load config file
+    $ sudo systemctl daemon-reload
+
+    # tell Systemd to always load the service on boot
+    $ sudo systemctl enable gunicorn-staging.example.com
+
+    # start the service
+    $ sudo systemctl start gunicorn-staging.example.com
+
+Running Gunicorn manually with ``./virtualenv/bin/gunicorn --bind unix:/tmp/staging.example.com.socket example.wsgi:application`` is not needed anymore, since Gunicorn now runs all the time.
+
+Debugging tips and commands:
+
+.. code-block::
+
+    # check Systemd logs
+    $ sudo journalctl -u gunicorn.staging.example.com
+
+    # check the validity of the service configuration
+    $ systemd-analyze verify /etc/systemd/system/gunicorn-staging.example.com.service
+
+    # start the service
+    $ sudo systemctl start gunicorn-staging.example.com
