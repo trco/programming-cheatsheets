@@ -43,6 +43,9 @@ Usage
     # Create virtulenv with specific python version
     $ pyenv virtualenv <python-version> <name>
 
+    # List all virtulenvs
+    $ pyenv virtualenvs
+
     # Activate virtualenv
     $ pyenv activate <name>
 
