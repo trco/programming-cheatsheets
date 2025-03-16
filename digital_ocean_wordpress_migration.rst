@@ -62,15 +62,15 @@ Select Wordpress droplet from marketplace and create Lets Encrypt certificate in
     $ mysql wordpress < wordpress.sql
     $ mysql
     $ use wordpress;
-    $ SELECT * FROM <table_name>
-
-Check that tables in "wordpress" database were sucessfully imported.
+    # check that import was successful
+    $ SELECT * FROM <table_name>;
 
 6. Change "wordpress" database password to the one in wp-config.php
 -------------------------------------------------------------------
 
     $ ssh root@<new_droplet_ip>
-    $ cat /var/www/html/wp-config.php // search for DB_PASSWORD
+    # search for DB_PASSWORD
+    $ cat /var/www/html/wp-config.php
     $ sudo myql
     $ SELECT User, Host, Db FROM mysql.db WHERE Db = 'wordpress';
     $ ALTER USER 'wordpress'@'localhost' IDENTIFIED BY '<DB_PASSWORD>';
