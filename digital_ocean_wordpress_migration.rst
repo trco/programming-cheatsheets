@@ -68,6 +68,8 @@ Select Wordpress droplet from marketplace and create Lets Encrypt certificate in
 6. Change "wordpress" database password to the one in wp-config.php
 -------------------------------------------------------------------
 
+.. code-block::
+
     $ ssh root@<new_droplet_ip>
     # search for DB_PASSWORD
     $ cat /var/www/html/wp-config.php
