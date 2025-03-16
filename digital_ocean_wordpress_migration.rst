@@ -81,3 +81,46 @@ Select Wordpress droplet from marketplace and create Lets Encrypt certificate in
 ------------------------------------------------------
 
 Update "A" DNS records for the domain to the IP of the new droplet.
+
+8. Setup Apache for Wordpress
+-----------------------------
+
+.. code-block::
+
+    $ ssh root@<new_droplet_ip>
+    
+    # delete all files in /etc/apache2/sites-enabled
+    # delete all files in /etc/apache2/sites-enabled
+    # paste config below into the file: /etc/apache2/sites-available/<config_name>.conf
+    
+    # enable required modules and follow instructions
+    $ sudo a2enmod rewrite
+    $ sudo a2enmod headers
+    $ sudo a2enmod expires
+    $ sudo a2enmod ssl
+    
+    # enable site configuration
+    $ sudo a2ensite <config_name>
+    $ sudo systemctl restart apache2
+    
+    # setup ssl ceritficate
+    $ sudo apt update
+    $ sudo apt install certbot python3-certbot-apache
+    $ sudo certbot --apache -d kvickekvacke.com -d www.kvickekvacke.com
+
+.. code-block::
+
+<VirtualHost *:80>
+    ServerName kvickekvacke.com
+    ServerAlias www.kvickekvacke.com
+    DocumentRoot /var/www/html
+    
+    <Directory /var/www/html>
+        Options FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+    
+    ErrorLog ${APACHE_LOG_DIR}/kvickekvacke-error.log
+    CustomLog ${APACHE_LOG_DIR}/kvickekvacke-access.log combined
+</VirtualHost>
