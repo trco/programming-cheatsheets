@@ -9,7 +9,7 @@ Migrating Wordpress site to the new Digital Ocean droplet
 5. Import the database dump to the "wordpress" database on new droplet
 6. Change "wordpress" database password to the one in wp-config.php
 7. Update "A" DNS records to the IP of the new droplet
-
+8. Setup Apache for Wordpress
 
 1. Create new Wordpress droplet
 -------------------------------
@@ -106,21 +106,21 @@ Update "A" DNS records for the domain to the IP of the new droplet.
     # setup ssl ceritficate
     $ sudo apt update
     $ sudo apt install certbot python3-certbot-apache
-    $ sudo certbot --apache -d kvickekvacke.com -d www.kvickekvacke.com
+    $ sudo certbot --apache -d <domain_name>.com -d www.<domain_name>.com
 
 .. code-block::
 
-<VirtualHost *:80>
-    ServerName kvickekvacke.com
-    ServerAlias www.kvickekvacke.com
-    DocumentRoot /var/www/html
-    
-    <Directory /var/www/html>
-        Options FollowSymLinks
-        AllowOverride All
-        Require all granted
-    </Directory>
-    
-    ErrorLog ${APACHE_LOG_DIR}/kvickekvacke-error.log
-    CustomLog ${APACHE_LOG_DIR}/kvickekvacke-access.log combined
-</VirtualHost>
+    <VirtualHost *:80>
+        ServerName <domain_name>.com
+        ServerAlias www.<domain_name>.com
+        DocumentRoot /var/www/html
+        
+        <Directory /var/www/html>
+            Options FollowSymLinks
+            AllowOverride All
+            Require all granted
+        </Directory>
+        
+        ErrorLog ${APACHE_LOG_DIR}/<domain_name>-error.log
+        CustomLog ${APACHE_LOG_DIR}/<domain_name>-access.log combined
+    </VirtualHost>
