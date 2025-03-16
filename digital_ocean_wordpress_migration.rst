@@ -14,7 +14,7 @@ Migrating Wordpress site to the new Digital Ocean droplet
 1. Create new Wordpress droplet
 -------------------------------
 
-Create lets encrypt certificate.
+Select Wordpress droplet from marketplace and create Lets Encrypt certificate in the process of spinning of the droplet.
 
 
 2. Copy /var/www/html from the old droplet to the local machine
