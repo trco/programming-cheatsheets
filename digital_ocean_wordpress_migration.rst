@@ -1,6 +1,6 @@
-=====================================================
-Migrating Wordpress site to new Digital Ocean droplet
-=====================================================
+=========================================================
+Migrating Wordpress site to the new Digital Ocean droplet
+=========================================================
 
 1. Create new Wordpress droplet
 2. Copy /var/www/html from the old droplet to local machine
