@@ -80,4 +80,4 @@ Select Wordpress droplet from marketplace and create Lets Encrypt certificate in
 7. Update "A" DNS records to the IP of the new droplet
 ------------------------------------------------------
 
-Update DNS records for the domain to the IP of the new droplet.
+Update "A" DNS records for the domain to the IP of the new droplet.
