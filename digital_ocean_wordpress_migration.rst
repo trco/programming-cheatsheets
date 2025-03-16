@@ -3,8 +3,8 @@ Migrating Wordpress site to the new Digital Ocean droplet
 =========================================================
 
 1. Create new Wordpress droplet
-2. Copy /var/www/html from the old droplet to local machine
-3. Dump mysql "wordpress" database and copy it to local machine
+2. Copy /var/www/html from the old droplet to the local machine
+3. Dump mysql "wordpress" database and copy it to the local machine
 4. Paste /var/www/html from local machine to the new droplet
 5. Import the database dump to the "wordpress" database on new droplet
 6. Change "wordpress" database password to the one in wp-config.php
@@ -17,8 +17,8 @@ Migrating Wordpress site to the new Digital Ocean droplet
 Create lets encrypt certificate.
 
 
-2. Copy /var/www/html from the old droplet to local machine
------------------------------------------------------------
+2. Copy /var/www/html from the old droplet to the local machine
+---------------------------------------------------------------
 
 .. code-block::
 
@@ -26,8 +26,8 @@ Create lets encrypt certificate.
     $ get -r /var/www/html
 
 
-3. Dump mysql "wordpress" database and copy it to local machine
----------------------------------------------------------------
+3. Dump mysql "wordpress" database and copy it to the local machine
+-------------------------------------------------------------------
 
 .. code-block::
 
